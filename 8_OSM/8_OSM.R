@@ -1,8 +1,105 @@
 # Packages loading ---- 
 library(osmdata)
 library(sf)
-library(tidyverse)
+#library(tidyverse)
 library(tidygeocoder)
+library(ggplot2)
+library(showtext)
+library(raster)
+
+font_add_google(name = 'Barlow', family = 'Barlow')
+showtext_auto()
+
+bbx <- getbb(paste0('Ljubljana, Slovenia')) #"Oujda", ",", "Morocco"
+
+roads_main <- opq(bbox = bbx) %>%
+  add_osm_feature(key = 'highway',
+                  value = c('primary',
+                            'secondary',
+                            'motorway',
+                            'trunk',
+                            'primary_link',
+                            'secondary_link',
+                            'trunk_link',
+                            'motorway_link'
+                  )) %>%
+  osmdata_sf()
+
+
+q <- opq ("portsmouth usa") %>%
+  add_osm_feature(key = "amenity", value = "restaurant") %>%
+  add_osm_feature(key = "amenity", value = "pub")
+
+q <- q %>%
+  osmdata_sf()
+
+
+
+roads_all <- opq(bbox = bbx, timeout=50) %>%
+  add_osm_feature(key = 'highway') %>%
+  osmdata_sf()
+
+buildings <- opq(bbx, timeout=50) %>% 
+  add_osm_feature(key = "building") %>%
+  osmdata_sf()
+
+
+landuse <- opq(bbx) |>
+  add_osm_feature(key = 'landuse', value = c('grass','forest')) |>
+  osmdata_sf()
+
+leisure <- opq(bbx) |>
+  add_osm_feature(key = 'leisure', value = c('garden','park')) |>
+  osmdata_sf()
+
+natural <- opq(bbox = bbx) |>
+  add_osm_feature(key = 'natural') |>
+  osmdata_sf()
+
+river <- opq(bbox = bbx) |>
+  add_osm_feature(key = 'water') |>
+  osmdata_sf()
+
+
+
+# circle
+# code from: https://github.com/AbdoulMa/30DayMapChallenge/blob/main/Day8/day8_2022.R
+long = 14.5077
+lat = 46.0494
+
+center_proj <-
+  tibble(long, lat) %>%
+  st_as_sf(coords = c("long", "lat"), crs = crs(roads_main$osm_lines))
+
+dist <-  1000
+circle <- tibble(long, lat) %>%
+  st_as_sf(coords = c("long", "lat"), crs = crs(roads_main$osm_lines)) %>%
+  st_buffer(dist = dist) %>%
+  st_transform(crs = crs(roads_main$osm_lines))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Create the plot object, using the osm_lines element of tucson_major
+street_plot <- ggplot() +
+  geom_sf(data = tucson_major$osm_lines,
+          inherit.aes = FALSE,
+          color = "black",
+          size = 0.2)
+# Print the plot
+street_plot
+
+
 
 bbx <- getbb(paste0('Ljubljana, Slovenia')) #"Oujda", ",", "Morocco"
 
