@@ -113,8 +113,9 @@ p <- ggdraw(ukmap_plot) +
 
 
 
-
 ggsave( here::here("1_Point_pubs/1_Point_uk_pubs_starbucks.png"), plot = p, height = 6, width = 4, bg = "#011936FF")
+
+
 
 
 #uk_starbucks <- world_starbucks %>%
@@ -133,8 +134,6 @@ ggsave( here::here("1_Point_pubs/1_Point_uk_pubs_starbucks.png"), plot = p, heig
 #  #sf::st_transform(crs = 4277) %>%
 #  mutate(color = if_else( site == "pubs", "#F65058FF", "#078282FF" ),   #red crayola #teal blue
 #         shape = if_else( site == "pubs", 20, 18))  #"#FC766AFF" 
-
-
 
 
 
@@ -159,21 +158,4 @@ ggsave( here::here("1_Point_pubs/1_Point_uk_pubs_starbucks.png"), plot = p, heig
   
   
   
-
-
-#p <- ggplot() +
-#  geom_sf(data = uk_map,
-#          colour = "#939799",
-#          size = 0.05,
-#          fill = "#B0B8B4FF") +
-#  geom_sf(data = pubs_starbucks_lonlat,
-#          size = 0.1
-#          aes(color=color),
-          #colour = "#00558e"
-#  theme_void()+
-#          ) +
-#  scale_color_identity() 
-
-
- 
 
