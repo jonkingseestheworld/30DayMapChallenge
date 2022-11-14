@@ -46,3 +46,6 @@ vignettes/*.pdf
 .Rprofile
 renv/*
 renv.lock
+
+8_OSM/osm_features
+reference
