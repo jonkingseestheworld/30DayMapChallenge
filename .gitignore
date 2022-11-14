@@ -42,3 +42,7 @@ vignettes/*.pdf
 .DS_Store
 *.Rproj
 
+
+.Rprofile
+renv/*
+renv.lock
