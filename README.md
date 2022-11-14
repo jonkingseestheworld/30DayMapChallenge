@@ -14,5 +14,5 @@ Check out the challenge at [github.com/tjukanovt/30DayMapChallenge](https://gith
 
 ## Day 8 (Open Street Map)
 <p align="center">
-<img src="1_OSM/day8_OSM_Bham.png?raw=true" width="50%">
+<img src="8_OSM/day8_OSM_Bham.png?raw=true" width="50%">
 </p>
