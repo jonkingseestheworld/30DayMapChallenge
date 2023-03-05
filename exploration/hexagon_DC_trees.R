@@ -35,7 +35,7 @@ showtext::showtext_opts(dpi = 300)
 #  list.files() %>%
 #  str_subset(".csv$")
 
-trees<-read.csv(here::here("reference/Urban_Forestry_Street_Trees.csv"))
+trees<-read.csv(here::here("exploration/data/Urban_Forestry_Street_Trees.csv"))
 
 
 # dc shape file 
@@ -48,7 +48,7 @@ trees<-read.csv(here::here("reference/Urban_Forestry_Street_Trees.csv"))
 # https://epsg.io/3857
 shp_file <- "Washington_DC_Boundary.shp"
 
-dc_sf<-st_read(here::here("reference/DC_shape", shp_file)) %>%
+dc_sf<-st_read(here::here("exploration/data", shp_file)) %>%
   st_transform(3857)
 
 
@@ -148,9 +148,9 @@ db_reformatted<-paste(default_breaks, collapse="   ")
 
 
 p<-ggplot()+
-  with_shadow(geom_sf(data=dc_sf, fill="#252525", color=NA),sigma=5)+
-  geom_sf(data=trees_grid, aes(fill=counts), color="#252525", key_glyph=draw_key_hex)+
-  geom_sf(data=dc_sf, fill=NA, color="#FDD9E5", size=.7)+
+  with_shadow(geom_sf(data=dc_sf, fill="#252525", color=NA),sigma=5) +
+  geom_sf(data=trees_grid, aes(fill=counts), color="#252525", key_glyph=draw_key_hex) +
+  geom_sf(data=dc_sf, fill=NA, color="#FDD9E5", size=.7) +
   scale_fill_gradient(low="#FDD9E5", high="#FC3084", na.value="#494949")+
   
   
@@ -158,7 +158,7 @@ p<-ggplot()+
   geom_text(aes(x=bbox_dc[1]-x_diff*.19, y=bbox_dc[2]+.58*y_diff, label=db_reformatted),color="#FDD9E5", family="Ubuntu", size=5.2, fontface="bold")+
   geom_textbox(aes(x=bbox_dc[1]-x_diff*.15, y=bbox_dc[2]+.48*y_diff, label=subtitle), color="#FDD9E5", family="Ubunutu", size=5, width=unit(.33, "npc"),fill=NA, box.color=NA)+
   geom_textbox(aes(x=bbox_dc[3]-x_diff*.01, y=bbox_dc[2], label=caption), color="#FDD9E5", width=unit(.25,"npc"), fill=NA, box.color=NA, hjust=1, halign=1)+
-  labs(title = title_gradient)+
+  #labs(title = title_gradient)+
   guides(fill=ggplot2::guide_legend(title="",  ticks=FALSE, direction="horizontal", label = FALSE))+
   theme(#legend.position="none",
     plot.margin = margin(l=10, unit="mm"),
